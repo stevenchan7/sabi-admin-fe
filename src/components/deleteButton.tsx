@@ -4,6 +4,7 @@ import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { toaster } from './ui/toaster';
 import { DialogActionTrigger, DialogBody, DialogCloseTrigger, DialogContent, DialogFooter, DialogHeader, DialogRoot, DialogTitle, DialogTrigger } from './ui/dialog';
 import { deleteQuiz } from '@/api/quiz.api';
+import { deleteGroup } from '@/api/group.api';
 
 export default function DeleteButton({ id, model }: { id: number; model: string }) {
   const queryClient = useQueryClient();
@@ -15,6 +16,9 @@ export default function DeleteButton({ id, model }: { id: number; model: string 
     if (model === 'quiz') {
       return deleteQuiz(id);
     }
+    if (model === 'group') {
+      return deleteGroup(id);
+    }
     return Promise.reject(new Error(`Unsupported model: ${model}`));
   };
 
@@ -24,6 +28,9 @@ export default function DeleteButton({ id, model }: { id: number; model: string 
     }
     if (model === 'quiz') {
       return ['quizes', 'group'];
+    }
+    if (model === 'group') {
+      return ['groups'];
     }
   };
 

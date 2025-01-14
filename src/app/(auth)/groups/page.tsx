@@ -1,8 +1,10 @@
 'use client';
 
 import { getGroups } from '@/api/group.api';
+import DeleteButton from '@/components/deleteButton';
 import { BreadcrumbCurrentLink, BreadcrumbRoot } from '@/components/ui/breadcrumb';
 import { Button } from '@/components/ui/button';
+import { Toaster } from '@/components/ui/toaster';
 import Group from '@/interfaces/group.interface';
 import useGroupStore from '@/lib/stores/group.store';
 import { Container, HStack, Image, Link, Stack, Table } from '@chakra-ui/react';
@@ -74,15 +76,20 @@ export default function QuizGroupPage() {
                       <Link href={`/groups/${group.id}/quizes`}>{group.totalQuestion}</Link>
                     </Table.Cell>
                     <Table.Cell paddingX={4} paddingY={2}>
-                      <Button colorPalette='orange' color='bg' asChild>
-                        <Link href={`/groups/${group.id}/edit`}>Edit</Link>
-                      </Button>
+                      <Stack gap={1}>
+                        <Button colorPalette='orange' color='bg' paddingX={4} paddingY={3} asChild>
+                          <Link href={`/groups/${group.id}/edit`}>Edit</Link>
+                        </Button>
+                        <DeleteButton model='group' id={group.id} />
+                      </Stack>
                     </Table.Cell>
                   </Table.Row>
                 ))}
             </Table.Body>
           </Table.Root>
         </Table.ScrollArea>
+
+        <Toaster />
       </Stack>
     </Container>
   );

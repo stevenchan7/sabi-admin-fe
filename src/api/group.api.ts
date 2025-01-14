@@ -82,3 +82,19 @@ export const editGroup = async ({ id, title, description, thumbnail }: EditQuizG
     handleError(error);
   }
 };
+
+export const deleteGroup = async (id: number) => {
+  try {
+    const {
+      data: { message },
+    } = await sabiAxios.delete(`/api/groups/${id}`, {
+      headers: {
+        Authorization: localStorage.getItem('token'),
+      },
+    });
+
+    return message;
+  } catch (error) {
+    handleError(error);
+  }
+};
